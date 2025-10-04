@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: srf-carboncapture
+Version: 0.1.0
+Summary: Tools for SRF carbon capture workflows
+Home-page: https://github.com/your-org/srf-carboncapture
+Author: Your Name
+License: MIT
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-python
+Dynamic: summary
+
+# SRF-CarbonCapture
+A model for assessing carbon capture through Short Rotation Forestry (SRF).
