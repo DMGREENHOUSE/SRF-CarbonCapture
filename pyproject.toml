@@ -1,4 +1,20 @@
-# pyproject.toml
 [build-system]
 requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "srf-carboncapture"
+version = "0.1.0"
+description = "Short Rotation Forestry carbon capture and biochar economics model"
+authors = [
+  { name = "Your Name", email = "you@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "numpy",
+  "matplotlib",
+  "plotly",
+  "streamlit",
+  "scipy"
+]
