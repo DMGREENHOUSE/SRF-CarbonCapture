@@ -11,7 +11,9 @@ if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 from srf_carboncapture.models.srf_net_income import srf_net_income
-from srf_carboncapture.models.trees import QuercusRobur, AlnusGlutinosa, PopulusTremula, AcerPseudoplatanus
+from srf_carboncapture.models.trees import QuercusRobur, AlnusGlutinosa, PopulusTremula, \
+    AcerPseudoplatanus, AcerPseudoplatanus, PinusSylvestris, \
+    FraxinusExcelsior, BetulaPendula, FagusSylvatica
 
 st.set_page_config(page_title="SRF Net Income Explorer", layout="wide")
 
@@ -33,13 +35,13 @@ with col1:
     wood_area = st.number_input("Wood area [hectares]", min_value=0.01, max_value=10_000.0, value=1.0, step=0.1)
     tree_area = st.number_input("Tree area [hectares per tree]", min_value=0.00001, max_value=0.01, value=0.000225, step=0.000005, format="%.6f")
     yearly_rotation = st.slider("Yearly rotation [years]", min_value=5, max_value=60, value=20, step=1)
-    land_per_biochar_tonne = st.number_input("Land used per biochar tonne [ha/t]", min_value=0.0, max_value=10.0, value=0.0, step=0.1)
-    land_value_per_ha = st.number_input("Land value [£/ha]", min_value=0.0, max_value=100_000.0, value=0.0, step=100.0)
+    land_per_biochar_tonne = st.number_input("Spare land per biochar tonne [ha/t]", min_value=0.0, max_value=10.0, value=0.0, step=0.1)
+    land_value_per_ha = st.number_input("Spare land value [£/ha]", min_value=0.0, max_value=100_000.0, value=0.0, step=100.0)
 
 with col2:
     st.subheader("Economics")
     carbon_credit_per_co2_tonne = st.number_input("Carbon credit [£ per tCO₂e]", min_value=0.0, max_value=1_000.0, value=30.0, step=1.0)
-    pyroloysis_processing_cost_per_biochar_tonne = st.number_input("Pyrolysis processing cost [£/t biochar]", min_value=0.0, max_value=10_000.0, value=50.0, step=10.0)
+    pyroloysis_processing_cost_per_biochar_tonne = st.number_input("Pyrolysis processing cost [£/t biochar]", min_value=0.0, max_value=10_000.0, value=100.0, step=10.0)
     carbon_resale_per_biochar_tonne = st.number_input("Carbon resale price [£/t biochar]", min_value=0.0, max_value=10_000.0, value=800.0, step=10.0)
 
 st.markdown("---")
@@ -53,6 +55,10 @@ available_species = [
     ("Acer pseudoplatanus (Sycamore)", AcerPseudoplatanus),
     ("Alnus glutinosa (Alder)", AlnusGlutinosa),
     ("Populus tremula (Aspen)", PopulusTremula),
+    ("Fagus sylvatica (Beech)", FagusSylvatica),
+    ("Pinus sylvestris (Scots Pine)", PinusSylvestris),
+    ("Fraxinus excelsior (Ash)", FraxinusExcelsior),
+    ("Betula pendula (Birch)", BetulaPendula),
 ]
 
 # Defaults from the model
@@ -61,6 +67,10 @@ default_enabled = {
     AcerPseudoplatanus: True,
     AlnusGlutinosa: True,
     PopulusTremula: True,
+    FagusSylvatica: False,
+    PinusSylvestris: False,
+    FraxinusExcelsior: False,
+    BetulaPendula: False,
 }
 
 # Select which species to include
@@ -130,7 +140,7 @@ if run_sim:
 
     # Plot with matplotlib (single plot, no style/colors set)
     fig, ax = plt.subplots()
-    ax.plot(years, costs)
+    ax.plot(years, costs, color='black')
     ax.set_xlabel("Year")
     ax.set_ylabel("Net revenue [£/year]")
     ax.set_title("Net revenue vs year")

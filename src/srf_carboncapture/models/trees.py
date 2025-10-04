@@ -202,9 +202,94 @@ class AcerPseudoplatanus(Tree):
         'd': 7.06
     }
 
+class PinusSylvestris(Tree):
+    # Scots Pine
+    mai_coordinates = [
+        # years, height
+        # | Age (years) | MAI (m³/ha/yr) |
+        (0, 0),
+        (10, 2.0),
+        (20, 5.0),
+        (30, 8.0),
+        (40, 10.0),
+        (50, 10.5),
+        (60, 10.2),
+        (70, 9.8),
+    ]
+    mai_parameters = {
+        'a': 5.96,
+        'b': 0.0461,
+        'c': 0.528,
+        'd': 3.37
+    }
+
+class FraxinusExcelsior(Tree):
+    # Ash
+    mai_coordinates = [
+        # years, height
+        # | Age (years) | MAI (m³/ha/yr) |
+        (0, 0),
+        (10, 3.0),
+        (20, 7.0),
+        (30, 10.5),
+        (40, 12.0),
+        (50, 11.8),
+        (60, 10.5),
+        (70, 9.8),
+    ]
+    mai_parameters = {
+        'a': 4.22,
+        'b': 0.0677,
+        'c': 0.271,
+        'd': 5.21
+    }
+
+class BetulaPendula(Tree):
+    # Birch
+    mai_coordinates = [
+        # years, height
+        # | Age (years) | MAI (m³/ha/yr) |
+        (0, 0),
+        (5, 4.0),
+        (10, 8.0),
+        (30, 9.),
+        (40, 7.0),
+        (50, 5.),
+    ]
+    mai_parameters = {
+        'a': 0.622,
+        'b': 0.088,
+        'c': 4.31,
+        'd': 6.25
+    }
+
+class FagusSylvatica(Tree):
+    # Beech
+    mai_coordinates = [
+        # years, height
+        # | Age (years) | MAI (m³/ha/yr) |
+        (0, 0),
+        (10, 1.0),
+        (20, 3.0),
+        (40, 6.),
+        (60, 8.0),
+        (80, 9.),
+        (100, 9.),
+        (120, 8.5),
+    ]
+    mai_parameters = {
+        'a': 4.57,
+        'b': 0.0318,
+        'c': 0.456,
+        'd': 3.11
+    }
+
+
+
+
 
 if __name__ == "__main__":
-    tree = AcerPseudoplatanus(tree_area=0.1)
+    tree = FagusSylvatica(tree_area=0.1)
     time = np.arange(0, 150, 1)
     tree.plot_mai(time)
     tree.carbon_capture(time)

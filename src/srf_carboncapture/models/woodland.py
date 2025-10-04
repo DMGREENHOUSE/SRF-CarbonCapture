@@ -18,17 +18,25 @@ class Woodland:
             n_trees = int(num_trees * percentage)
             trees.extend([tree_class(tree_area=tree_area) for _ in range(n_trees)])
         self.trees = trees  # List of Tree instances
-        print(len(self.trees), "trees in the woodland")
+        self.yearly_rotation = yearly_rotation
         self.coppice_rate = self.find_coppice_rate(yearly_rotation)
 
     def __call__(self):
         # A year of the wood's life
         captured_biomass = 0.
         for tree in self.trees:
-            is_coppice = (np.random.rand() < self.coppice_rate)
+            is_coppice = self.apply_coppice_rule(tree)
             captured_biomass += tree(is_coppice=is_coppice)
         # print("Captured biomass this year (tonne):", captured_biomass)
         return captured_biomass
+    
+    def apply_coppice_rule(self, tree):
+        # Don't coppice in the first half of rotation
+        no_coppice_fraction = 0.5
+        if tree.year_since_coppice < self.yearly_rotation * no_coppice_fraction:
+            return False
+        else:
+            return (np.random.rand() < self.coppice_rate / no_coppice_fraction)
 
     def find_coppice_rate(self, yearly_rotation):
         # Example: 0.2 means 20% of trees are coppiced annually
